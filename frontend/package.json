@@ -1,0 +1,15 @@
+{
+    "name": "frontend",
+    "version": "1.0.0",
+    "description": "React frontend served by Express",
+    "type": "module",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
+    }
+  }
+  

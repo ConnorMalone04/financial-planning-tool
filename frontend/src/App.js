@@ -1,41 +1,40 @@
 import React, { useState } from 'react';
-
-const [result, setResult] = useState('');
-calculated = false;
-
-function Info() {
-    // placeholders for extracted data to be returned later on
-    body: JSON.stringify({
-        num1: parseInt(num1, 10), 
-        num2: parseInt(num2, 10)
-        })
-    
-    return (
-        <>
-        <h1>About</h1>
-        <p>Hello there.<br />How do you do?</p>
-      </>
-    );
-}
+import StartPage from "./StartPage.js"
 
 const App = () => {
     const [investment, setInvestment] = useState('');
     const [years, setYears] = useState('');
+    const [result, setResult] = useState('');
+    const [calculated, setCalculated] = useState(false);
+
+    function Info() {
+        return (
+            <>
+                <h1>Calculation Result</h1>
+                <p>The future value of your investment is: <strong>${result.toFixed(2)}</strong></p>
+            </>
+        );
+    }
 
     const handleCalculate = async () => {
+        console.log(investment);
+        console.log(years);
         try {
-            const response = await fetch('/run-method', {  
+            const response = await fetch('http://127.0.0.1:5000/run-method', {  
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
+                body: JSON.stringify({
+                    investment: parseInt(investment, 10), 
+                    years: parseInt(years, 10)
+                })
             });
-
-        const data = await response.json();
+    
+            const data = await response.json();
             if (response.ok) {
-                setResult(data.result);  // Store result from backend
-                calculated = true;
-
+                setResult(data.result);
+                setCalculated(true);
             } else {
                 alert(data.error);
             }
@@ -44,10 +43,9 @@ const App = () => {
         }
     };
 
+    let content = null;
     if (calculated) {
         content = <Info />;
-    } else {
-        content = None
     }
         
     return (

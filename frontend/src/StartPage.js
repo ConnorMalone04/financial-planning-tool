@@ -1,3 +1,5 @@
+import React from 'react';
+
 const data = {
     title: 'S&P 500 Data',
     imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
